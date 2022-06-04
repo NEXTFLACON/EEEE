@@ -1,0 +1,22 @@
+name: 自動化
+
+on:
+    schedule:
+        - cron: "0 5,17 * * *"
+    workflow_dispatch:
+
+jobs:
+    automation:
+        name: 自動化
+        runs-on: macos-latest
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Bahamut Automation
+              uses: JacobLinCool/Bahamut-Automation@v0.6.13
+              with:
+                  modules: "login,ad_handler,sign,report,guild,report,answer,report,lottery,report,logout,report,telegram"
+                  parameters: ${{ secrets.parameters || '{}' }}
+                  secrets: ${{ secrets.secrets }}
+
+            - uses: gautamkrishnar/keepalive-workflow@master
